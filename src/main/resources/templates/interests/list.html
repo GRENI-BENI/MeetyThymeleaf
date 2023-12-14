@@ -1,0 +1,35 @@
+<!-- src/main/resources/templates/interests/list.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest List</title>
+</head>
+<body>
+<h2>Interest List</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <!-- Add more columns as needed -->
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="interest : ${interests}">
+        <td th:text="${interest.id}"></td>
+        <td th:text="${interest.name}"></td>
+        <!-- Add more columns as needed -->
+        <td>
+            <a th:href="@{/interests/{id}/edit(id=${interest.id})}">Edit</a>
+            <a th:href="@{/interests/{id}/delete(id=${interest.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/interests/new}">Add New Interest</a>
+</body>
+</html>

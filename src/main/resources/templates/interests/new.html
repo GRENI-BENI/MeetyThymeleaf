@@ -1,0 +1,22 @@
+<!-- src/main/resources/templates/interests/new.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Interest</title>
+</head>
+<body>
+<h2>Add New Interest</h2>
+<form th:action="@{/interests/new}" th:object="${interest}" method="post">
+    <!-- Add form fields for interest properties -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+    <br>
+    <!-- Add more form fields as needed -->
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/interests}">Back to Interest List</a>
+</body>
+</html>

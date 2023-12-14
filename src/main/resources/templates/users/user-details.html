@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Details</title>
+</head>
+<body>
+
+<h1>User Details</h1>
+
+<div th:each="user : ${user}">
+  <p hidden id="userId" th:text="${user.id}"></p>
+  <h2 th:text="${user.fullName}"></h2>
+  <p th:text="${user.email}"></p>
+  <p>Interests: <span th:each="interest : ${user.interests}" th:text="${interest.name} + ', '"></span></p>
+  <p>Friends: <span th:each="friend : ${user.friends}" th:text="${friend.fullName} + ', '"></span></p>
+  <div style="height:220px;width:100%;border:1px solid #ccc; overflow:auto;" th:if="${user.description.length() >=100}" th:text="${user.description}"></div>
+  <p th:unless="${user.description.length() >=100}" th:text="${user.description}"></p>
+  <button onclick="deleteUser()" type="button" class="btn btn-danger">Delete user</button>
+
+</div>
+<script>
+  function deleteUser(){
+    console.log("yes")
+    let id=document.getElementById("userId").innerText
+     window.location.replace("http://localhost:8080/user/delete/"+id);
+  }
+</script>
+</body>
+</html>

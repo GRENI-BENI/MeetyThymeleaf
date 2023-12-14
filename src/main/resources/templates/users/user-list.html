@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar bg-body-tertiary  bg-dark border-bottom border-body">
+    <div class="container-fluid justify-content-between">
+        <a class="navbar-brand" href="/user">Meety</a>
+        <form class="d-flex" role="search" action="/user"  method="get">
+            <input class="form-control me-2" style="min-width: 500px" type="search" placeholder="Search by name"
+                   name="fullName" th:value="${fullName}" aria-label="Search by name">
+            <select class="form-select me-2" id="interest" name="selectedInterest" th:options="${interests}"
+                    th:value="${selectedInterest}">
+                <option value="all">All</option>
+                <option th:each="interest : ${interests}" th:value="${interest}" th:text="${interest}"></option>
+            </select>
+<!--            <button style="margin: 3px" id="users-sort-btn" onclick="sortUsers()" name="sort" type="button" class="btn btn-dark" >Ascending</button>-->
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <span></span>
+    </div>
+</nav>
+
+
+
+<a href="/user/add" style="position: absolute; z-index: 10; right: 10px; bottom: 10px" type="button" class="btn btn-primary"><svg fill="white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg></a>
+
+
+
+<!-- ... (remaining HTML code) ... -->
+
+
+<!--<form action="/users/sort" method="get">-->
+<!--    <label for="sortOrder">Sort by Name:</label>-->
+<!--    <select id="sortOrder" name="sortOrder">-->
+<!--        <option value="asc">Ascending</option>-->
+<!--        <option value="desc">Descending</option>-->
+<!--    </select>-->
+<!--    <button type="submit">Sort</button>-->
+<!--</form>-->
+
+<div style="width: 100%" class="row row-cols-2 row-cols-md-3 g-4" >
+    <div class="col" th:each="user : ${users}">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${user.fullName}"></h5>
+                <p class="card-text" th:text="${user.description}"></p>
+                <td th:switch="${#lists.size(user.interests)}">
+                    <span th:case="'0'" ></span>
+                    <span th:case="'1'" >Interest - <span  th:text="${user.interests[0].name} + ', '"></span></span>
+                    <p th:case="*" class="card-text">Interests: <span th:each="interest : ${user.interests}" th:text="${interest.name} + ', '"></span></p>
+                </td>
+
+            </div>
+            <a th:href="@{'/user/' + ${user.id}}">View Details</a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+</html>
